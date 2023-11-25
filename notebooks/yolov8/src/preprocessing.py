@@ -1,12 +1,14 @@
-import numpy as np
 import cv2
+import numpy as np
 
 
 def _normalize(image: np.ndarray) -> np.ndarray:
     return image / 255.0
 
 
-def _resize(image: np.ndarray, new_image_size:tuple[int, int], fill_color=(0, 0, 0)) -> np.ndarray:
+def _resize(
+    image: np.ndarray, new_image_size: tuple[int, int], fill_color=(0, 0, 0)
+) -> np.ndarray:
     image_height, image_width, *_ = image.shape
     new_image_width, new_image_height = new_image_size
     ratio = min(new_image_width / image_width, new_image_height / image_height)
