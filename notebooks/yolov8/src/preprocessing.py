@@ -6,7 +6,7 @@ def _normalize(image: np.ndarray) -> np.ndarray:
     return image / 255.0
 
 
-def _resize_with_padding(image: np.ndarray, new_image_size=(640, 480), fill_color=(0, 0, 0)) -> np.ndarray:
+def _resize(image: np.ndarray, new_image_size:tuple[int, int], fill_color=(0, 0, 0)) -> np.ndarray:
     image_height, image_width, *_ = image.shape
     new_image_width, new_image_height = new_image_size
     ratio = min(new_image_width / image_width, new_image_height / image_height)
@@ -47,7 +47,7 @@ def preprocess_image(image: np.ndarray, image_size: tuple[int, int]):
     input_img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     input_img = _normalize(input_img)
-    input_img = _resize_with_padding(image=input_img, new_image_size=image_size)
+    input_img = _resize(image=input_img, new_image_size=image_size)
     input_img = _transpose(input_img)
     input_img = _add_batch(input_img)
 
