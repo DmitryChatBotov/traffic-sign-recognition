@@ -21,6 +21,7 @@ class TrafficSignDetector:
             self._input_width,
             self._input_height,
         ) = self._get_model_input()
+        print(self._get_model_input())
         self._model_output_names = self._get_model_output()
 
     def __call__(self, image: np.ndarray):
@@ -35,8 +36,10 @@ class TrafficSignDetector:
     def _get_model_input(self):
         model_inputs = self._model.get_inputs()
         model_input_names = [model_inputs[i].name for i in range(len(model_inputs))]
-        input_width = 640
-        input_height = 480
+        input_info = self._model.get_inputs()[0]
+        input_shape = input_info.shape
+        input_width = input_shape[3]
+        input_height = input_shape[2]
 
         return model_input_names, input_width, input_height
 

@@ -43,10 +43,8 @@ def _extract_boxes(
     img_height: int,
 ) -> np.ndarray:
     boxes = predictions[:, :4]
-
-    boxes = _rescale_boxes(boxes, input_width, input_height, img_width, img_height)
-
     boxes = xywh2xyxy(boxes)
+    boxes = _rescale_boxes(boxes, input_width, input_height, img_width, img_height)
 
     return boxes
 
@@ -58,7 +56,15 @@ def _rescale_boxes(
     img_width: int,
     img_height: int,
 ) -> np.ndarray:
-    input_shape = np.array([input_width, input_height, input_width, input_height])
-    boxes = np.divide(boxes, input_shape, dtype=np.float32)
-    boxes *= np.array([img_width, img_height, img_width, img_height])
-    return boxes
+    scale = min(input_width / img_width, input_height / img_height)
+    x_padding = (input_width - img_width * scale) / 2
+    y_padding = (input_height - img_height * scale) / 2
+
+    rescaled_boxes = np.empty_like(boxes)
+
+    rescaled_boxes[:, 0] = (boxes[:, 0] - x_padding) / scale
+    rescaled_boxes[:, 1] = (boxes[:, 1] - y_padding) / scale
+    rescaled_boxes[:, 2] = (boxes[:, 2] - x_padding) / scale
+    rescaled_boxes[:, 3] = (boxes[:, 3] - y_padding) / scale
+
+    return rescaled_boxes
