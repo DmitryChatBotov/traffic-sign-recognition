@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 CLASS_NAMES = [
     "2_1",
@@ -178,3 +179,18 @@ def xywh2xyxy(x):
     y[..., 2] = x[..., 0] + x[..., 2] / 2
     y[..., 3] = x[..., 1] + x[..., 3] / 2
     return y
+
+def plot_detection_result(image: np.ndarray, bboxes) -> np.ndarray:
+    for bbox in bboxes:
+        cv2.rectangle(image, bbox[:2], bbox[2:4], (255, 255, 0), 2)
+        cv2.putText(
+            image,
+            f"{bbox[4]}:{bbox[5]}",
+            (bbox[0], bbox[1] - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.9,
+            (255, 255, 0),
+            2,
+        )
+
+    return image
