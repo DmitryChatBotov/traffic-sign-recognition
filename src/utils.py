@@ -1,5 +1,5 @@
-import numpy as np
 import cv2
+import numpy as np
 
 CLASS_NAMES = [
     "2_1",
@@ -179,6 +179,7 @@ def xywh2xyxy(x):
     y[..., 2] = x[..., 0] + x[..., 2] / 2
     y[..., 3] = x[..., 1] + x[..., 3] / 2
     return y
+
 
 def plot_detection_result(image: np.ndarray, bboxes) -> np.ndarray:
     for bbox in bboxes:
