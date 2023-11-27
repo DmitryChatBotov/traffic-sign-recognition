@@ -66,7 +66,7 @@ TBD
 
 ## Эксперименты
 
-| Модель | Датасет |  Precision(all) | Recall(all) | MAP50(all) | MAP50-95(all) | epochs | classes
-| --- | --- | --- | --- | --- | --- | --- |
-| yolov8s| [Russian traffic sign images dataset] |  0.834 | 0.774 | 0.839 | 0.621| 15 | 117
-| yolov5s| [Russian traffic sign images dataset] |  0.739 | 0.46 | 0.533 | 0.385 | 15 | 117
+| Модель | Датасет |  Precision(all) | Recall(all) | MAP50(all) | MAP50-95(all) | epochs | classes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| yolov8s| [Russian traffic sign images dataset] |  0.834 | 0.774 | 0.839 | 0.621| 15 | 117 |
+| yolov5s| [Russian traffic sign images dataset] |  0.739 | 0.46 | 0.533 | 0.385 | 15 | 117 |
