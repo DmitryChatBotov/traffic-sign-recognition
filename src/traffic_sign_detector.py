@@ -21,7 +21,6 @@ class TrafficSignDetector:
             self._input_width,
             self._input_height,
         ) = self._get_model_input()
-        print(self._get_model_input())
         self._model_output_names = self._get_model_output()
 
     def __call__(self, image: np.ndarray):
@@ -30,7 +29,7 @@ class TrafficSignDetector:
     @staticmethod
     def _load_model(path: Path | str) -> nxrun.InferenceSession:
         return nxrun.InferenceSession(
-            path, providers=["CPUExecutionProvider", "CUDAExecutionProvider"]
+            path, providers=["CUDAExecutionProvider"]
         )
 
     def _get_model_input(self):
@@ -48,7 +47,8 @@ class TrafficSignDetector:
 
     def _infer(self, model_input: np.ndarray):
         return self._model.run(
-            self._model_output_names, {self._model_input_names[0]: model_input}
+            self._model_output_names,
+            {self._model_input_names[0]: nxrun.OrtValue.ortvalue_from_numpy(model_input, 'cuda', 0)}
         )
 
     def _detect(self, image: np.ndarray) -> list[dict[str, Any]]:
