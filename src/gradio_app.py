@@ -3,13 +3,14 @@ import os
 import gradio as gr
 
 from traffic_sign_detector import TrafficSignDetector
+from utils import label_video
 
 
 def process_video(input_video_path):
     output_video_path = input_video_path.rsplit(".", 1)[0] + "_processed.mp4"
 
     detector = TrafficSignDetector(os.path.join(os.pardir, "models", "best.onnx"))
-    detector.label_video(input_video_path, output_video_path)
+    label_video(input_video_path, output_video_path, detector)
 
     return output_video_path
 
